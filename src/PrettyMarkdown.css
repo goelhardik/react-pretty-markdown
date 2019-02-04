@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+}
+#pretty-markdown-root > .paragraph-strong {
+    font-weight: 400;
+}
+
+#pretty-markdown-root h2, h3, h4 * {
+    font-size: 38px;
+    font-weight: 200;
+    color: rgba(0,0,0,.77);
+}
+
+
+#pretty-markdown-root h3 * {
+    font-size: 28px;
+}
+
+#pretty-markdown-root h4 * {
+    font-size: 23px;
+}
+
+#pretty-markdown-root p * {
+    font-size: 17px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.47);
+}
+
+#pretty-markdown-root a * {
+    font-size: 17px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.47);
+}
+
+#pretty-markdown-root blockquote * {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eee;
+}

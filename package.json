@@ -82,6 +82,11 @@
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*",
+    "LICENSE",
+    "README.md"
+  ],
   "dependencies": {
     "react": "^16.8.0-alpha.1"
   }

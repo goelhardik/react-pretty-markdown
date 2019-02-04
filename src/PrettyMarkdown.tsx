@@ -1,24 +1,76 @@
 import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
+import MarkdownSection from "./MarkdownSection";
+import md from "./markdown";
+import "./PrettyMarkdown.css";
 
 const styles = (theme: Theme) => createStyles({
-    root: {
-        width: "100%",
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
-    }
+    prettyMarkdownRoot: {
+        width: "max-content",
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        margin: "auto",
+        textAlign: "center"
+    },
+    independentContainer: {
+    },
+    paperContainer: {
+        textAlign: "left",
+        padding: "10px"
+    },
+    contentContainer: {
+        overflowY: "auto",
+        maxHeight: "--webkit-fill-available"
+    },
 });
 
-export interface IPrettyMarkdownProps<T> extends WithStyles<typeof styles> {
+
+export interface IMarkdownGridSection {
+    title?: string;
+    content: string;
 }
 
-function PrettyMarkdown(props: IPrettyMarkdownProps<typeof styles>) {
+export interface IPrettyMarkdownProps<T> extends WithStyles<typeof styles> {
+    sections: IMarkdownGridSection[];
+    usePaper?: boolean;
+    usePanel?: boolean;
+}
+
+function PrettyMarkdownComponent(props: IPrettyMarkdownProps<typeof styles>) {
     const { classes } = props;
 
+
     return (
-        <div className={classes.root}>
-            BLAH
+        <div className={classes.prettyMarkdownRoot} id="pretty-markdown-root">
+            {
+                props.usePaper ?
+                    <Paper elevation={4} className={classes.paperContainer}>
+                        {renderContent(props)}
+                    </Paper>
+                    :
+                    <div className={classes.independentContainer}>
+                        {renderContent(props)}
+                    </div>
+            }
         </div>
     );
 }
 
-export default (withStyles(styles)(PrettyMarkdown));
+function renderContent(props: IPrettyMarkdownProps<typeof styles>) {
+    const { classes, sections } = props;
+
+    return <div className={classes.contentContainer}>
+        {sections.map((s: IMarkdownGridSection, idx: number) => {
+            return <MarkdownSection
+                key={`markdown-section-${idx}`}
+                section={{
+                    title: s.title,
+                    content: md.render(s.content)
+                }}
+                usePanel={props.usePanel}
+            />;
+        })}
+    </div>
+}
+
+export default (withStyles(styles)(PrettyMarkdownComponent));
