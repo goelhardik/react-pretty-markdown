@@ -34,14 +34,16 @@ export interface IPrettyMarkdownProps<T> extends WithStyles<typeof styles> {
     sections: IMarkdownGridSection[];
     usePaper?: boolean;
     usePanel?: boolean;
+    className?: string;
+    showPreview?: boolean;
 }
 
-function PrettyMarkdownComponent(props: IPrettyMarkdownProps<typeof styles>) {
+function PrettyMarkdown(props: IPrettyMarkdownProps<typeof styles>) {
     const { classes } = props;
 
 
     return (
-        <div className={classes.prettyMarkdownRoot} id="pretty-markdown-root">
+        <div className={props.className || classes.prettyMarkdownRoot} id="pretty-markdown-root">
             {
                 props.usePaper ?
                     <Paper elevation={4} className={classes.paperContainer}>
@@ -68,9 +70,10 @@ function renderContent(props: IPrettyMarkdownProps<typeof styles>) {
                     content: md.render(s.content)
                 }}
                 usePanel={props.usePanel}
+                showPreview={props.showPreview}
             />;
         })}
     </div>
 }
 
-export default (withStyles(styles)(PrettyMarkdownComponent));
+export default (withStyles(styles)(PrettyMarkdown));

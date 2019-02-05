@@ -6,8 +6,8 @@ export * from "./PrettyMarkdown";
 // ReactDOM.render(React.createElement(PrettyMarkdown, {
 //     sections: [{
 //         title: "This is a title",
-//         content: "## this is a h2 heading"
+//         content: "## this is a h2 heading \r\n what is *love*"
 //     }],
 //     usePaper: true,
-//     usePanel: true
+//     usePanel: false
 // }), document.getElementById("root"));

@@ -6,15 +6,22 @@ import { IMarkdownGridSection } from "./PrettyMarkdown";
 
 const styles = (theme: Theme) => createStyles({
     sectionHeading: {
-        fontSize: "38px",
+        fontSize: "38px !important",
         fontWeight: 200,
-        color: "rgba(0, 0, 0, .77)"
+        color: "rgba(0, 0, 0, .77)",
+        lineHeight: "38px !important"
+    },
+    panelTopBar: {
+        display: "grid",
+        gridTemplateColumns: "1fr 2fr",
+        gridColumnGap: "20px"
     }
 });
 
 export interface IMarkdownSectionProps extends WithStyles<typeof styles> {
     section: IMarkdownGridSection;
     usePanel?: boolean;
+    showPreview?: boolean;
 }
 
 interface IMarkdownSectionState {
@@ -33,13 +40,17 @@ class MarkdownSection extends React.Component<IMarkdownSectionProps, IMarkdownSe
     public render() {
         const { classes, section } = this.props;
         const { expanded } = this.state;
+        const shortCommentary = section.content.slice(0, 300) + "...";
 
         return (
             this.props.usePanel ?
                 <ExpansionPanel expanded={expanded} onChange={this.handleChange} CollapseProps={{ timeout: 100 }}>
                     {section.title &&
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.sectionHeading}>{section.title}</Typography>
+                            <div className={classes.panelTopBar}>
+                                <h3>{section.title}</h3>
+                                {!this.state.expanded && this.props.showPreview && <Typography><div dangerouslySetInnerHTML={{ __html: shortCommentary }} /></Typography>}
+                            </div>
                         </ExpansionPanelSummary>
                     }
                     <ExpansionPanelDetails>
